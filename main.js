@@ -1,16 +1,28 @@
 
 const parent = document.querySelector('ul.items')
+const maximumDescriptionLength = 140
 
 data.forEach((currentItem, index) => {
   const newItem = document.createElement('li')
 
   // This should be a link
+  // <p>
+  //   <a href="......">words</a>
+  // </p>
   const title = document.createElement('p')
-  title.textContent = currentItem.title
+  
+  const link = document.createElement('a')
+  link.href = currentItem.url
+  link.textContent = currentItem.title
+  title.append(link)
 
   // Super long ... should truncate
   const description = document.createElement('p')
-  description.textContent = currentItem.description
+  if (currentItem.description.length > maximumDescriptionLength) {
+    description.textContent = currentItem.description.slice(0, maximumDescriptionLength) + '...'
+  } else {
+    description.textContent = currentItem.description
+  }
 
   // some things are in GBP, not USD
   const price = document.createElement('p')
